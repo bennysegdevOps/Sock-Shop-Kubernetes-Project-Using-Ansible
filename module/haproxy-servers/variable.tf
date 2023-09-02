@@ -1,0 +1,14 @@
+variable "ami" {}
+variable "instance_type" {}
+variable "private_subnet1" {}
+variable "private_subnet2" {}
+variable "haproxy_sg" {}
+variable "keypair" {}
+variable "master1" {}
+variable "master2" {}
+variable "master3" {}
+variable "master4" {}
+variable "master5" {}
+variable "master6" {}
+variable "tag1" {}
+variable "tag2" {}

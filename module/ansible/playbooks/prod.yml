@@ -1,0 +1,17 @@
+---
+ - name: Ansible playbook for Prod
+   hosts: MastKeepalived
+   become: true
+
+   tasks:
+
+   - name: Deleting the Previous Deployment in Production  
+     shell: sudo su -c 'kubectl delete -f prod-complete.yaml' ubuntu
+     ignore_errors: true
+     args:
+       chdir: EU-Team2-Sock-Shop-App-Repo/deploy/kubernetes
+
+   - name: Deploying Latest Update to Production  
+     shell: sudo su -c 'kubectl apply -f prod-complete.yaml' ubuntu     
+     args:
+       chdir: EU-Team2-Sock-Shop-App-Repo/deploy/kubernetes
