@@ -1,0 +1,26 @@
+---
+ - name: Ansible Playbook for Stage 
+   hosts: MastKeepalived
+   become: true
+
+   tasks:
+
+   - name: Removing the Previous Application Repo for Update  
+     shell: rm -rf EU-Team2-Sock-Shop-App-Repo
+     ignore_errors: true
+     args:
+       chdir: /home/ubuntu
+
+   - name: Cloning Application Repo to get the Latest Update
+     shell: git clone https://github.com/CloudHight/EU-Team2-Sock-Shop-App-Repo.git 
+
+   - name: Deleting Previous Deployment to Stage  
+     shell: sudo su -c 'kubectl delete -f staging-complete.yaml' ubuntu
+     ignore_errors: true     
+     args:
+       chdir: EU-Team2-Sock-Shop-App-Repo/deploy/kubernetes
+
+   - name: Deploying Latest Update to Stage  
+     shell: sudo su -c 'kubectl apply -f staging-complete.yaml' ubuntu     
+     args:
+       chdir: EU-Team2-Sock-Shop-App-Repo/deploy/kubernetes
